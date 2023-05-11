@@ -316,10 +316,7 @@ def run(
                 cv2.line(im0, (w - 280,90), (w-20,90), [85,45,255], 40)
                 cv2.putText(im0, f'Gate Incoming', (w - 280, 100), 0, 1, [225, 255, 255], thickness=2, lineType=cv2.LINE_AA)
 
-                # -- Uncomment the below lines to computer car and truck count --
-                # It is the count of both incoming and outgoing vehicles
-
-                #Objects
+                #Objects Incoming
                 cv2.line(im0, (w - 220, 190), (w-20, 190), [85, 45, 255], 30)
                 cv2.putText(im0, "objectA: "+str(objectA_count), (w - 220, 200), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
                 cv2.line(im0, (w - 220, 240), (w-20, 240), [85, 45, 255], 30)
