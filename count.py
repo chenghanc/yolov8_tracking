@@ -300,6 +300,48 @@ def run(
 
             # Save results (image with detections)
             if save_vid:
+                global up_count,down_count
+
+                cv2.line(im0, (0, h-800), (w,h-800),(0,0,255),thickness=3)
+                cv2.line(im0, (0, h-250), (w,h-250),(0,0,0),thickness=3)
+                print("w = ",w,"h = ",h)
+
+                thickness = 3 # font thickness
+                font = cv2.FONT_HERSHEY_SIMPLEX
+                fontScale = 1.2
+                #cv2.putText(im0, "Gate Total Outgoing:  "+str(up_count), (60, 150), font, fontScale, (0,0,255), thickness, cv2.LINE_AA)
+                cv2.line(im0, (20,90), (280,90), [85,45,255], 40)
+                cv2.putText(im0, f'Gate Outgoing', (20, 100), 0, 1, [225, 255, 255], thickness=2, lineType=cv2.LINE_AA)
+                #cv2.putText(im0, "Gate Total Incoming:  "+str(down_count), (600,150), font, fontScale, (255,0,0), thickness, cv2.LINE_AA)
+                cv2.line(im0, (w - 280,90), (w-20,90), [85,45,255], 40)
+                cv2.putText(im0, f'Gate Incoming', (w - 280, 100), 0, 1, [225, 255, 255], thickness=2, lineType=cv2.LINE_AA)
+
+                # -- Uncomment the below lines to computer car and truck count --
+                # It is the count of both incoming and outgoing vehicles
+
+                #Objects
+                cv2.line(im0, (w - 220, 190), (w-20, 190), [85, 45, 255], 30)
+                cv2.putText(im0, "objectA: "+str(objectA_count), (w - 220, 200), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
+                cv2.line(im0, (w - 220, 240), (w-20, 240), [85, 45, 255], 30)
+                cv2.putText(im0, "objectB: "+str(objectB_count), (w - 220, 250), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
+                cv2.line(im0, (w - 220, 290), (w-20, 290), [85, 45, 255], 30)
+                cv2.putText(im0, "objectC: "+str(objectC_count), (w - 220, 300), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
+
+                #Objects Outgoing
+                cv2.line(im0, (20, 190), (220, 190), [85, 45, 255], 30)
+                cv2.putText(im0, "objectA: "+str(objectA_count2), (20, 200), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
+                cv2.line(im0, (20, 240), (220, 240), [85, 45, 255], 30)
+                cv2.putText(im0, "objectB: "+str(objectB_count2), (20, 250), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
+                cv2.line(im0, (20, 290), (220, 290), [85, 45, 255], 30)
+                cv2.putText(im0, "objectC: "+str(objectC_count2), (20, 300), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
+
+                #Total
+                cv2.line(im0, (w - 670, 190), (w - 380, 190), [95, 145, 255], 30)
+                cv2.putText(im0, "total objectA: "+str(objectA_count-objectA_count2), (w - 670, 200), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
+                cv2.line(im0, (w - 670, 240), (w - 400, 240), [95, 145, 255], 30)
+                cv2.putText(im0, "total objectB: "+str(objectB_count-objectB_count2), (w - 670, 250), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
+                cv2.line(im0, (w - 670, 290), (w - 400, 290), [95, 145, 255], 30)
+                cv2.putText(im0, "total objectC: "+str(objectC_count-objectC_count2), (w - 670, 300), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
                 if vid_path[i] != save_path:  # new video
                     vid_path[i] = save_path
                     if isinstance(vid_writer[i], cv2.VideoWriter):
