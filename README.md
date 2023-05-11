@@ -228,6 +228,37 @@ The set of hyperparameters leading to the best HOTA result are written to the tr
 
 </details>
 
+## Count
+
+<details>
+<summary>Training custom objects</summary>
+
+```bash
+git clone https://github.com/ultralytics/ultralytics
+cd ultralytics
+git log --all --grep='ultralytics 8.0.58'
+git checkout ec10002a4ade5a43abb9d5765f77eefddf98904b
+pip install ultralytics==8.0.58
+```
+
+- Reference: [ultralytics](https://github.com/ultralytics/ultralytics)
+
+</details>
+
+<details>
+<summary>Compute counting</summary>
+
+```bash
+cd yolov8_tracking
+mkdir weights
+
+python count.py --source test.mp4 --yolo-weights best.pt --img 800 --save-vid --show-vid
+```
+
+- Reference: [vehicle-counting-yolov5](https://github.com/mahimairaja/vehicle-counting-yolov5)
+
+</details>
+
 ## Contact 
 
 For Yolov8 tracking bugs and feature requests please visit [GitHub Issues](https://github.com/mikel-brostrom/Yolov5_StrongSORT_OSNet/issues). 
