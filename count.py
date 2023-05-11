@@ -206,7 +206,7 @@ def run(
             imc = im0.copy() if save_crop else im0  # for save_crop
 
             annotator = Annotator(im0, line_width=line_thickness, example=str(names))
-            
+            w, h = im0.shape[1],im0.shape[0]
             if hasattr(tracker_list[i], 'tracker') and hasattr(tracker_list[i].tracker, 'camera_update'):
                 if prev_frames[i] is not None and curr_frames[i] is not None:  # camera motion compensation
                     tracker_list[i].tracker.camera_update(prev_frames[i], curr_frames[i])
@@ -251,6 +251,11 @@ def run(
                         id = output[4]
                         cls = output[5]
                         conf = output[6]
+
+                        _dir =  direction(id,bbox[1])
+
+                        #count
+                        count_obj(bbox,w,h,id,_dir,int(cls))
 
                         if save_txt:
                             # to MOT format
@@ -328,8 +333,6 @@ def count_obj(box,w,h,id,direct,cls):
     cx, cy = (int(box[0]+(box[2]-box[0])/2) , int(box[1]+(box[3]-box[1])/2))
     print(cx,cy)
 
-
-
     # For South
 
     if cy<= int(h//2):
@@ -364,8 +367,6 @@ def count_obj(box,w,h,id,direct,cls):
                 elif cls==2:
                     objectC_count2+=1
 
-
-
 def direction(id,y):
     global dir_data
 
@@ -378,7 +379,6 @@ def direction(id,y):
             return "South"
         else:
             return "North"
-
 
 def parse_opt():
     parser = argparse.ArgumentParser()
