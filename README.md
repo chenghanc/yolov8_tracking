@@ -233,12 +233,28 @@ The set of hyperparameters leading to the best HOTA result are written to the tr
 <details>
 <summary>Training custom objects</summary>
 
+Prerequisite
+
 ```bash
 git clone https://github.com/ultralytics/ultralytics
 cd ultralytics
 git log --all --grep='ultralytics 8.0.58'
 git checkout ec10002a4ade5a43abb9d5765f77eefddf98904b
 pip install ultralytics==8.0.58
+```
+
+Train yolov8m on the custom dataset for 80 epochs at image size 640
+
+```python
+from ultralytics import YOLO
+
+# Load a model
+#model = YOLO('yolov8m.yaml')  # build a new model from YAML
+#model = YOLO('yolov8m.yaml').load('yolov8m.pt')  # build from YAML and transfer weights
+model = YOLO('yolov8m.pt')  # load a pretrained model (recommended for training)
+
+# Train the model
+results = model.train(data="bsh.yaml", epochs=80, imgsz=640, batch=16)
 ```
 
 - Reference: [ultralytics](https://github.com/ultralytics/ultralytics)
