@@ -275,6 +275,15 @@ python count.py --source test.mp4 --yolo-weights best.pt --img 800 --save-vid --
 
 </details>
 
+<details>
+<summary>Compute counting (yolov5)</summary>
+
+```bash
+python count-v5.py --source test.mp4 --yolo-weights best-v5.pt --img 800 --save-vid --show-vid
+```
+
+</details>
+
 ## Contact 
 
 For Yolov8 tracking bugs and feature requests please visit [GitHub Issues](https://github.com/mikel-brostrom/Yolov5_StrongSORT_OSNet/issues). 
