@@ -21,23 +21,24 @@ WEIGHTS = ROOT / 'weights'
 
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
-if str(ROOT / 'yolov8') not in sys.path:
-    sys.path.append(str(ROOT / 'yolov8'))  # add yolov5 ROOT to PATH
+if str(ROOT / 'yolov5') not in sys.path:
+    sys.path.append(str(ROOT / 'yolov5'))  # add yolov5 ROOT to PATH
 if str(ROOT / 'trackers' / 'strongsort') not in sys.path:
     sys.path.append(str(ROOT / 'trackers' / 'strongsort'))  # add strong_sort ROOT to PATH
 
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 import logging
-from yolov8.ultralytics.nn.autobackend import AutoBackend
-from yolov8.ultralytics.yolo.data.dataloaders.stream_loaders import LoadImages, LoadStreams
-from yolov8.ultralytics.yolo.data.utils import IMG_FORMATS, VID_FORMATS
-from yolov8.ultralytics.yolo.utils import DEFAULT_CFG, LOGGER, SETTINGS, callbacks, colorstr, ops
-from yolov8.ultralytics.yolo.utils.checks import check_file, check_imgsz, check_imshow, print_args, check_requirements
-from yolov8.ultralytics.yolo.utils.files import increment_path
-from yolov8.ultralytics.yolo.utils.torch_utils import select_device
-from yolov8.ultralytics.yolo.utils.ops import Profile, non_max_suppression, scale_boxes, process_mask, process_mask_native
-from yolov8.ultralytics.yolo.utils.plotting import Annotator, colors, save_one_box
+from yolov5.models.common import DetectMultiBackend
+from yolov5.utils.dataloaders import LoadImages, LoadStreams
+from yolov5.utils.dataloaders import IMG_FORMATS, VID_FORMATS
+from yolov5.utils.general import LOGGER, colorstr
+from yolov5.utils.general import check_file, check_img_size, check_imshow, print_args, check_requirements
+from yolov5.utils.general import increment_path
+from yolov5.utils.torch_utils import select_device
+from yolov5.utils.general import Profile, non_max_suppression, scale_boxes
+from yolov5.utils.segment.general import process_mask, process_mask_native
+from yolov5.utils.plots import Annotator, colors, save_one_box
 
 from trackers.multi_tracker_zoo import create_tracker
 
@@ -113,9 +114,9 @@ def run(
     # Load model
     device = select_device(device)
     is_seg = '-seg' in str(yolo_weights)
-    model = AutoBackend(yolo_weights, device=device, dnn=dnn, fp16=half)
+    model = DetectMultiBackend(yolo_weights, device=device, dnn=dnn, fp16=half)
     stride, names, pt = model.stride, model.names, model.pt
-    imgsz = check_imgsz(imgsz, stride=stride)  # check image size
+    imgsz = check_img_size(imgsz, s=stride)  # check image size
 
     # Dataloader
     bs = 1
@@ -133,7 +134,7 @@ def run(
     else:
         dataset = LoadImages(
             source,
-            imgsz=imgsz,
+            img_size=imgsz,
             stride=stride,
             auto=pt,
             transforms=getattr(model.model, 'transforms', None),
