@@ -262,7 +262,7 @@ results = model.train(data="bsh.yaml", epochs=80, imgsz=640, batch=16)
 </details>
 
 <details>
-<summary>Compute counting</summary>
+<summary>Compute counting (yolov8)</summary>
 
 ```bash
 cd yolov8_tracking
