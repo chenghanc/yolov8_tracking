@@ -290,16 +290,6 @@ def run(
             # Stream results
             im0 = annotator.result()
             if show_vid:
-                if platform.system() == 'Linux' and p not in windows:
-                    windows.append(p)
-                    cv2.namedWindow(str(p), cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)  # allow window resize (Linux)
-                    cv2.resizeWindow(str(p), im0.shape[1], im0.shape[0])
-                cv2.imshow(str(p), im0)
-                if cv2.waitKey(1) == ord('q'):  # 1 millisecond
-                    exit()
-
-            # Save results (image with detections)
-            if save_vid:
                 global up_count,down_count
 
                 cv2.line(im0, (0, h-800), (w,h-800),(0,0,255),thickness=3)
@@ -339,6 +329,16 @@ def run(
                 cv2.putText(im0, "total objectB: "+str(objectB_count-objectB_count2), (w - 670, 250), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
                 cv2.line(im0, (w - 670, 290), (w - 400, 290), [95, 145, 255], 30)
                 cv2.putText(im0, "total objectC: "+str(objectC_count-objectC_count2), (w - 670, 300), font, 1, [225, 255, 255], 2, cv2.LINE_AA)
+                if platform.system() == 'Linux' and p not in windows:
+                    windows.append(p)
+                    cv2.namedWindow(str(p), cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)  # allow window resize (Linux)
+                    cv2.resizeWindow(str(p), im0.shape[1], im0.shape[0])
+                cv2.imshow(str(p), im0)
+                if cv2.waitKey(1) == ord('q'):  # 1 millisecond
+                    exit()
+
+            # Save results (image with detections)
+            if save_vid:
                 if vid_path[i] != save_path:  # new video
                     vid_path[i] = save_path
                     if isinstance(vid_writer[i], cv2.VideoWriter):
