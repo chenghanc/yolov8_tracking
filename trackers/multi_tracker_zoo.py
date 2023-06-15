@@ -79,6 +79,18 @@ def create_tracker(tracker_type, tracker_config, reid_weights, device, half):
             inertia=cfg.deepocsort.inertia,
         )
         return botsort
+    elif tracker_type == 'deep_sort':
+        from trackers.deep_sort.deep_sort import DeepSort
+        deepsort = DeepSort(
+            reid_weights,
+            max_dist=cfg.DEEPSORT.MAX_DIST,
+            max_iou_distance=cfg.DEEPSORT.MAX_IOU_DISTANCE,
+            max_age=cfg.DEEPSORT.MAX_AGE,
+            n_init=cfg.DEEPSORT.N_INIT,
+            nn_budget=cfg.DEEPSORT.NN_BUDGET,
+            use_cuda=True
+        )
+        return deepsort
     else:
         print('No such tracker')
         exit()
