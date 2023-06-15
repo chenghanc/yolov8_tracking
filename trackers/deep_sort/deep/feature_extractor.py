@@ -6,7 +6,7 @@ import logging
 
 import sys
 # so that init does not execute in the package
-sys.path.append('deep_sort/deep/reid')
+sys.path.append('trackers/deep_sort/deep/reid')
 from torchreid import models
 
 
