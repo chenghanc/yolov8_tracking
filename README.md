@@ -279,7 +279,11 @@ python count.py --source test.mp4 --yolo-weights best.pt --img 800 --save-vid --
 <summary>Compute counting (yolov5)</summary>
 
 ```bash
+# deepocsort, botsort, strongsort, ocsort, bytetrack
 python count-v5.py --source test.mp4 --yolo-weights best-v5.pt --img 800 --save-vid --show-vid
+
+# deep_sort
+python count-v5-deepsort.py --source test.mp4 --yolo-weights best-v5.pt --img 800 --save-vid --show-vid --reid-weights osnet_x0_25
 ```
 
 </details>
