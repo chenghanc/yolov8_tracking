@@ -250,12 +250,11 @@ def run(
                             255 if retina_masks else im[i]
                         )
                     
-                    for j, (output) in enumerate(outputs[i]):
+                    for j, (output, conf) in enumerate(zip(outputs[i], confs)):
                         
                         bbox = output[0:4]
                         id = output[4]
                         cls = output[5]
-                        conf = output[6]
 
                         _dir =  direction(id,bbox[1])
 
